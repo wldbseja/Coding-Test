@@ -2,8 +2,7 @@ function solution(numbers) {
     // numbers 배열 요소 수에 맞게 dp 배열 생성, -1로 초기화
     const dp = Array(numbers.length).fill(-1);
 
-    // 마지막 요소는 항상 -1로 설정
-    dp[numbers.length - 1] = -1;
+ 
 
     // 뒤에서부터 dp 값을 업데이트하면서 최대값 찾기
     for (let i = numbers.length - 2; i >= 0; i--) {
