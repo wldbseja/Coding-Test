@@ -7,12 +7,13 @@ function solution(n, k) {
     const nums = Array.from({length: n}, (_, idx) => idx + 1); // 1부터 n까지의 수 배열 만들기
     const result = [];
     
-    for (let i = n - 1; i >= 0; i--) {
-        const q = Math.floor((k - 1) / factorial[i]);
+    const getPermutation = (n, k, nums, result) => {
+        if (n === 0) return result; // 기저조건: 모든 자리수를 채웠을 때
+        const q = Math.floor((k - 1) / factorial[n - 1]);
         result.push(nums[q]);
         nums.splice(q, 1);
-        k -= q * factorial[i];
-    }
+        return getPermutation(n - 1, k - q * factorial[n - 1], nums, result);
+    };
     
-    return result;
+    return getPermutation(n, k, nums, result);
 }
