@@ -1,32 +1,21 @@
 function solution(arrayA, arrayB) {
-  let answer = 0;
-  let numMin1 = arrayA[0];
-  let numMin2 = arrayB[0];
+  let getGCD = (num1, num2) => {
+    let gcd = 0;
+
+    for (let i = 2; i <= Math.min(num1, num2); i++) {
+
+      if (num1 % i === 0 && num2 % i > 0) {
+        gcd = i;
+      }else if (gcd > Math.min(num1, num2)){
+          return 0
+      }
+    }
+
+    return gcd;
+  };
+  let count = 0;
   for (let i = 0; i < arrayA.length; i++) {
-    numMin1 = getMax(numMin1, arrayA[i]);
-    numMin2 = getMax(numMin2, arrayB[i]);
+    count = getGCD(arrayA[i], arrayB[i]);
   }
-  if (notDivisible(arrayB, numMin1)) {
-    if (answer < numMin1) {
-      answer = numMin1;
-    }
-  }
-  if (notDivisible(arrayA, numMin2)) {
-    if (answer < numMin2) {
-      answer = numMin2;
-    }
-  }
-  return answer;
+  return count;
 }
-const getMax = (a, b) => {
-  if (a % b == 0) return b;
-  return getMax(b, a % b);
-};
-const notDivisible = (arr, num) => {
-  for (let i = 0; i < arr.length; i++) {
-    if (arr[i] % num === 0) {
-      return false;
-    }
-  }
-  return true;
-};
