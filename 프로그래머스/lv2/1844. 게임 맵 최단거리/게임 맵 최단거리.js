@@ -1,30 +1,24 @@
 function solution(maps) {
-    const dx = [0, 1, 0, -1];
-    const dy = [1, 0, -1, 0];
-    
-    const n = maps.length;
-    const m = maps[0].length;
-    
-    let visited = Array.from(Array(n), () => Array(m).fill(0));
-    visited[0][0] = 1;
-    
+    let dx = [0, 0, -1, 1];
+    let dy = [-1, 1, 0, 0];
     let queue = [[0, 0]];
-    
-    while(queue.length > 0) {
-        const [x, y] = queue.shift();
-        
+    let visited = Array.from(Array(maps.length), () => Array(maps[0].length).fill(0));
+    visited[0][0] = 1;
+    while(queue.length !== 0) {
+        let [x, y] = queue.shift();
+        if (x === maps.length - 1 && y === maps[0].length - 1) { // 도착점에 도달했으면 종료
+            return visited[x][y];
+        }
         for(let i = 0; i < 4; i++) {
-            const nx = x + dx[i];
-            const ny = y + dy[i];
-            
-            if(nx < 0 || ny < 0 || nx >= n || ny >= m) continue;
-            
-            if(maps[nx][ny] === 1 && visited[nx][ny] === 0) {
-                visited[nx][ny] = visited[x][y] + 1;
-                queue.push([nx, ny]);
+            let nx = x + dx[i];
+            let ny = y + dy[i];
+            if(nx >= 0 && nx < maps.length && ny >= 0 && ny < maps[0].length) {
+                if(maps[nx][ny] === 1 && visited[nx][ny] === 0) {
+                    visited[nx][ny] = visited[x][y] + 1;
+                    queue.push([nx, ny]);
+                }
             }
         }
     }
-    
-    return visited[n-1][m-1] !== 0 ? visited[n-1][m-1] : -1;
+    return -1;
 }
