@@ -3,26 +3,15 @@ function solution(board) {
   const cols = board[0].length;
   let maxSquareSize = 0;
 
-  // 주어진 좌표의 값으로부터 가장 큰 정사각형의 한 변의 길이를 계산하는 함수
-  function calculateSquareSize(x, y) {
-    if (x === 0 || y === 0 || board[x][y] === 0) {
-      return board[x][y];
-    }
-
-    const minSize = Math.min(
-      board[x - 1][y],
-      board[x][y - 1],
-      board[x - 1][y - 1]
-    );
-
-    return minSize + 1;
+  // 1x1 배열인 경우에 대한 예외 처리
+  if (rows === 1 && cols === 1) {
+    return board[0][0];
   }
 
-  // 2차원 배열을 순회하면서 가장 큰 정사각형의 한 변의 길이를 찾음
-  for (let i = 0; i < rows; i++) {
-    for (let j = 0; j < cols; j++) {
+  for (let i = 1; i < rows; i++) {
+    for (let j = 1; j < cols; j++) {
       if (board[i][j] === 1) {
-        board[i][j] = calculateSquareSize(i, j);
+        board[i][j] = Math.min(board[i - 1][j], board[i][j - 1], board[i - 1][j - 1]) + 1;
         maxSquareSize = Math.max(maxSquareSize, board[i][j]);
       }
     }
