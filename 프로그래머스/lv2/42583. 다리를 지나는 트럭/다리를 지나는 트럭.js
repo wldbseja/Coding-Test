@@ -19,7 +19,7 @@ function solution(bridge_length, weight, truck_weights) {
         }
 
         // 아직 다리에 진입하지 않은 트럭이 있고 다리에 추가 가능한 무게면 큐에 추가
-        if (truck_weights.length > 0 && truck_weights[0] <= weight) {
+        if (truck_weights[0] <= weight) {
             const truckWeight = truck_weights.shift(); // 다리에 진입한 트럭 무게
             queue.push({ weight: truckWeight, time: 0 }); // 큐에 트럭 추가 및 경과 시간 초기화
             weight -= truckWeight; // 다리 위 무게 조정
